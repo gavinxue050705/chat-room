@@ -24,10 +24,17 @@ const firestore = firebase.firestore();
 function App() {
   const [user] = useAuthState(auth);
 
+  const signInWithGoogle = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider);
+  };
+
   return (
     <div className="app">
       <header></header>
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section>
+        {user ? <ChatRoom /> : <SignIn onClick={signInWithGoogle} />}
+      </section>
     </div>
   );
 }
